@@ -12,13 +12,13 @@ jobs:
   download_artifacts:
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifacts
+      - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
           name: build-${{ inputs.run_id }}
           path: dist
           github-token: ${{ github.token }}
-          run_id: ${{ inputs.run_id }}
+          run-id: ${{ inputs.run_id }}
 
   # Run Tests 
 

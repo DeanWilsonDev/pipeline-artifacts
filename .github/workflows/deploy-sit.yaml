@@ -34,7 +34,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Tag Commit for SIT 
-        uses: actions/checkout@v4
         run: |
           git checkout ${{input.VERSION}}
           git tag -a SIT-${{ env.VERSION }} -m "CI: ${{ env.VERSION }}"

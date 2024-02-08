@@ -49,5 +49,20 @@ jobs:
           name: code-coverage-report
           path: output/test/code-coverage.html
 
+  revision_list:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Get Revision List
+        run: git rev-list origin/main..HEAD | touch output/CI/revision-list.md
+
+      - name: Upload Revision List
+        uses: actions/upload-artifact@v4
+        with:
+          name: revision-list
+          path: output/ci/revision-list.md 
 
       

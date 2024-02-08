@@ -58,9 +58,9 @@ jobs:
           npm version patch -m "[ci skip] Update to v%s" 
           VERSION=v$(node -p "require('./package.json').version")
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          git add package.json
+          git add -a
           git commit -m "[ci skip] Update to v${{ env.VERSION }}"
-          git push
+          git push origin main
 
       - name: Tag Commit 
         run: |

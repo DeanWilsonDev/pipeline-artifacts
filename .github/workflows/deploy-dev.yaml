@@ -40,11 +40,12 @@ jobs:
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
           npm version patch -m "[ci skip] Update to v%s" 
+          git push origin main
+
+      - name: Update Version Variable
+        run: |
           VERSION=v$(node -p "require('./package.json').version")
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          git add -A
-          git commit -m "[ci skip] Update to v${{ env.VERSION }}"
-          git push origin main
 
       - name: Tag Commit 
         run: |

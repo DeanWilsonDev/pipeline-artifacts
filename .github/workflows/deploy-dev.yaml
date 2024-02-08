@@ -51,6 +51,15 @@ jobs:
           name: code-coverage-report
           path: dist/test/coverage/lcov-report/index.html
 
+      - name: Increment Package Version
+        run: |
+          npm version minor -m "[ci skip] Update to v%s" 
+
+      - name: Update DEV Version environment variable
+        run: | 
+          DEV_VERSION=DEV-v$(node -p "require('./package.json').version")
+          echo "DEV_VERSION=$DEV_VERSION" >> $GITHUB_ENV
+
   revision_list:
     needs: deploy
     runs-on: ubuntu-latest

@@ -43,9 +43,9 @@ jobs:
           # npm version patch -m "[no ci] CI: DEV v$(node -p "require('./package.json').version")}" 
           npm version patch --no-git-tag-version
           git add package.json && git add package-lock.json
-          git commit -m "[no ci] CI: DEV v$(node -p "require('./package.json').version)")"
-          git commit --fixup HEAD 
-          git rebase --autosquash
+          git reset --soft HEAD~1
+          git commit -m "[no ci] $(git log -n 1 --pretty=format:%s)  v$(node -p "require('./package.json').version)")"
+          git push origin main --force-with-lease
 
       - name: Create Tag
         run: |

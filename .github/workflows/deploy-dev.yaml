@@ -76,7 +76,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get Revision List
-        run: mkdir -p dist/ci && git --no-pager log --oneline ${{env.SIT_VERSION}}..HEAD > dist/ci/revision-list.md
+        run: |
+          "SIT_VERSION= $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)" 
+          mkdir -p dist/ci && git --no-pager log --oneline ${SIT_VERSION}..HEAD > dist/ci/revision-list.md
 
       - name: Upload Revision List
         uses: actions/upload-artifact@v4

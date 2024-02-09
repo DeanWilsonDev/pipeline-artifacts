@@ -73,23 +73,24 @@ jobs:
           path: dist/test/coverage/lcov-report/index.html
 
 
-  revision_list:
+  commit_log:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Get Revision List
+      - name: Get Commit Log 
         run: |
           git fetch --tags
-          mkdir -p dist/ci && git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)..HEAD > dist/ci/revision-list.txt
+          mkdir -p dist/ci && git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)..HEAD > dist/ci/commit-log.txt
+          touch dist/ci/revision-list.txt
 
-      - name: Upload Revision List
+      - name: Upload Commit Log 
         uses: actions/upload-artifact@v4
         with:
-          name: revision-list
-          path: dist/ci/revision-list.txt
+          name: commit-log 
+          path: dist/ci/commit-log.txt
 
 
       

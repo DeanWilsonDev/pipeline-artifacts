@@ -83,13 +83,13 @@ jobs:
       - name: Get Revision List
         run: |
           git fetch --tags
-          mkdir -p dist/ci && git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)..HEAD > dist/ci/revision-list.md
+          mkdir -p dist/ci && git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)..HEAD > dist/ci/revision-list.txt
 
       - name: Upload Revision List
         uses: actions/upload-artifact@v4
         with:
           name: revision-list
-          path: dist/ci/revision-list.md 
+          path: dist/ci/revision-list.txt
 
 
       

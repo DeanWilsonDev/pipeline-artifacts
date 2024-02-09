@@ -49,6 +49,7 @@ jobs:
 
       - name: Tag Commit 
         run: |
+          git fetch --tags
           git tag -a $VERSION -m "CI: DEV ${{ env.VERSION }}"
           git push origin -d $VERSION
           git push origin $VERSION -f

@@ -46,13 +46,11 @@ jobs:
 
       - name: Update Version Variable
         run: |
-          echo "v$(node -p "require('./package.json').version")" >> "${env.Version}"
-
-      - name: Tag Commit 
-        run: |
+          echo "Version=v$(node -p "require('./package.json').version")" >> "${Version}"
+          echo "${Version}"
           git fetch --tags
-          git tag -a "${{env.Version}}" -m "CI: DEV ${{env.Version}}"
-          git push origin "${{env.Version}}" -f
+          git tag -a "${Version}" -m "CI: DEV ${Version}"
+          git push origin "${Version}" -f
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

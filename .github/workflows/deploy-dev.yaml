@@ -41,7 +41,7 @@ jobs:
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
           npm version patch --no-git-tag-version 
           git add package.json 
-          git add package.lock.json
+          git add package-lock.json
           git reset --soft HEAD~1
           git commit --edit -m "$(git log --format=%B --reverse HEAD..HEAD@{1}) [no ci]"
 

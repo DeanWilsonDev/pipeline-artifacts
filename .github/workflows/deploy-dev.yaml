@@ -3,7 +3,7 @@ name: Deploy DEV
 on: [push]
 
 env:
-  SIT_VERSION: ${{env.SIT_VERSION}}
+  SIT_VERSION: ${{var.SIT_VERSION}}
 
 jobs:
   deploy:

@@ -44,13 +44,13 @@ jobs:
           npm version patch -m "[ci skip] Update to v%s" 
           git push origin main
 
-      - name: Update Version Variable
+      - name: Tag Commit 
         run: |
-          echo "Version=v$(node -p "require('./package.json').version")" >> "${Version}"
-          echo "${Version}"
+          echo "VERSION=v$(node -p "require('./package.json').version")" >> $VERSION
+          echo "$VERSION"
           git fetch --tags
-          git tag -a "${Version}" -m "CI: DEV ${Version}"
-          git push origin "${Version}" -f
+          git tag -a "$VERSION" -m "CI: DEV $VERSION"
+          git push origin "$VERSION" -f
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

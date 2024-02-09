@@ -84,8 +84,11 @@ jobs:
         run: |
           git fetch --tags
           mkdir -p dist/ci 
-          echo "$(git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)..HEAD<<EOF)" > dist/ci/commit-log.txt
-          cat dist/ci/commit-log.txt
+          echo 'COMMIT_LOG<<EOF' >> $GITHUB_ENV
+          git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)..HEAD >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+          echo ${{ COMMIT_LOG }} > dist/ci/commit-log.txt
+
 
       - name: Upload Commit Log 
         uses: actions/upload-artifact@v4

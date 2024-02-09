@@ -45,8 +45,8 @@ jobs:
       - name: Create Tag
         run: |
           git fetch --tags
-          git tag -a "${{v$(node -p "require('./package.json').version")}}" -m "CI: DEV ${{v$(node -p "require('./package.json').version")}}"
-          git push origin "${{v$(node -p "require('./package.json').version")}}" -f
+          git tag -a "v$(node -p "require('./package.json').version")" -m "CI: DEV v$(node -p "require('./package.json').version")}}"
+          git push origin "v$(node -p "require('./package.json').version")" -f
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

@@ -42,7 +42,7 @@ jobs:
           npm version patch --no-git-tag-version 
           git add package.json 
           git add package-lock.json
-          git reset --soft HEAD~1
+          git reset --soft origin/main~1
           git commit --edit -m "$(git log --format=%B --reverse HEAD..HEAD@{1}) [no ci]"
 
       - name: Create Tag

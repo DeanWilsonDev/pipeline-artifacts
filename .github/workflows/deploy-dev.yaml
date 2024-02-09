@@ -42,6 +42,7 @@ jobs:
         run: |
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
+          git add . && git commit
           npm version patch -m "[no ci] CI: DEV v$(node -p "require('./package.json').version")}" 
 
       - name: Create Tag

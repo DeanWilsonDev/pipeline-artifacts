@@ -40,8 +40,12 @@ jobs:
         run: |
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
-          npm version patch -m "[no ci] CI: DEV v$(node -p "require('./package.json').version")}" 
-          git push origin main
+          # npm version patch -m "[no ci] CI: DEV v$(node -p "require('./package.json').version")}" 
+          npm version patch --no-git-tag-version
+          git add package.json && git add package-lock.json
+          git commit -m "[no ci] CI: DEV v$(node -p "require('./package.json').version)")"
+          git commit --fixup HEAD 
+          git rebase --autosquash
 
       - name: Create Tag
         run: |
@@ -75,6 +79,7 @@ jobs:
       - name: Get Revision List
         run: |
           echo "SIT_VERSION= $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)" 
+          echo "SIT_VERSION= ${SIT_VERSION}"
           mkdir -p dist/ci && git --no-pager log --oneline ${SIT_VERSION}..HEAD > dist/ci/revision-list.md
 
       - name: Upload Revision List

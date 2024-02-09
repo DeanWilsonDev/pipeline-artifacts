@@ -3,7 +3,7 @@ name: Deploy DEV
 on: [push]
 
 env:
-  VERSION: ${{ vars.VERSION }}
+  VERSION: "" 
 
 jobs:
   deploy:
@@ -48,13 +48,13 @@ jobs:
       - name: Update Version Variable
         run: |
           VERSION=v$(node -p "require('./package.json').version")
-          echo "VERSION=${{env.VERSION}}" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Tag Commit 
         run: |
           git fetch --tags
-          git tag -a ${{ env.VERSION}} -m "CI: DEV ${{ env.VERSION }}"
-          git push origin ${{ env.VERSION }} -f
+          git tag -a $VERSION -m "CI: DEV $VERSION"
+          git push origin $VERSION -f
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

@@ -74,7 +74,7 @@ jobs:
 
       - name: Get Revision List
         run: |
-          "SIT_VERSION= $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)" 
+          echo "SIT_VERSION= $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)" 
           mkdir -p dist/ci && git --no-pager log --oneline ${SIT_VERSION}..HEAD > dist/ci/revision-list.md
 
       - name: Upload Revision List

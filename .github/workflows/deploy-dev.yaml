@@ -70,10 +70,11 @@ jobs:
   revision_list:
     needs: deploy
     runs-on: ubuntu-latest
+    if: ${{env.SIT_VERSION != "v0.0.0"}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Get Revision List
         run: mkdir -p dist/ci && git --no-pager log --oneline ${{env.SIT_VERSION}}..HEAD > dist/ci/revision-list.md
 
@@ -82,5 +83,6 @@ jobs:
         with:
           name: revision-list
           path: dist/ci/revision-list.md 
+
 
       

@@ -4,8 +4,6 @@ on: [push]
 
 jobs:
   deploy:
-    env:
-      Version: "" 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -44,13 +42,11 @@ jobs:
           npm version patch -m "[ci skip] Update to v%s" 
           git push origin main
 
-      - name: Tag Commit 
+      - name: Create Tag
         run: |
-          echo "VERSION=v$(node -p "require('./package.json').version")" 
-          echo "$VERSION"
           git fetch --tags
-          git tag -a "$VERSION" -m "CI: DEV $VERSION"
-          git push origin "$VERSION" -f
+          git tag -a "${{v$(node -p "require('./package.json').version")}}" -m "CI: DEV ${{v$(node -p "require('./package.json').version")}}"
+          git push origin "${{v$(node -p "require('./package.json').version")}}" -f
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

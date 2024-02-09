@@ -46,7 +46,7 @@ jobs:
 
       - name: Tag Commit 
         run: |
-          echo "VERSION=v$(node -p "require('./package.json').version")" >> $VERSION
+          echo "VERSION=v$(node -p "require('./package.json').version")" 
           echo "$VERSION"
           git fetch --tags
           git tag -a "$VERSION" -m "CI: DEV $VERSION"

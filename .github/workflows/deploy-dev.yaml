@@ -48,7 +48,7 @@ jobs:
       - name: Update Version Variable
         run: |
           VERSION=v$(node -p "require('./package.json').version")
-          echo "VERSION={{env.VERSION}}" >> $GITHUB_ENV
+          echo "VERSION=${{env.VERSION}}" >> $GITHUB_ENV
 
       - name: Tag Commit 
         run: |

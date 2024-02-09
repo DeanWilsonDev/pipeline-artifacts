@@ -39,16 +39,11 @@ jobs:
         run: |
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
-          npm version patch --no-git-tag-version 
-          git add package.json 
-          git add package-lock.json
-          git reset --soft origin/main~1
-          git commit --edit -m "$(git log --format=%B --reverse HEAD..HEAD@{1}) [no ci]"
+          npm version patch -m "[no ci] CI: DEV v$(node -p "require('./package.json').version")}" 
 
       - name: Create Tag
         run: |
           git fetch --tags
-          git tag -a "v$(node -p "require('./package.json').version")" -m "CI: DEV v$(node -p "require('./package.json').version")}}"
           git push origin "v$(node -p "require('./package.json').version")" -f
 
       - name: Upload Artifacts

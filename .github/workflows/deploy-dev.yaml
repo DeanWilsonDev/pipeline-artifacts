@@ -80,13 +80,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Get Commit Log 
+      - name: Fetch Tags
         run: |
           git fetch --tags
+
+      - name: Get Commit Log 
+        run: |
           mkdir -p dist/ci 
           echo 'COMMIT_LOG<<EOF' >> $GITHUB_ENV
           git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)..HEAD >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
+          echo "Commit Log: ${{ env.COMMIT_LOG }}"
           echo ${{ env.COMMIT_LOG }} > dist/ci/commit-log.txt
 
       - name: Upload Commit Log 

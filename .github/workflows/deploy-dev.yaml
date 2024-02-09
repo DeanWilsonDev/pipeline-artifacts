@@ -46,7 +46,7 @@ jobs:
 
       - name: Update Version Variable
         run: |
-          echo "v$(node -p "require('./package.json').version")" >> $Version
+          echo "Version=v$(node -p "require('./package.json').version")" >> $Version
 
       - name: Tag Commit 
         run: |

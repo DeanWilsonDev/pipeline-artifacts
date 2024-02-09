@@ -2,6 +2,9 @@ name: Deploy DEV
 
 on: [push]
 
+env:
+  SIT_VERSION: ${{env.SIT_VERSION}}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -71,7 +74,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Get Revision List
-        run: mkdir -p dist/ci && git --no-pager log --oneline origin/main..HEAD > dist/ci/revision-list.md
+        run: mkdir -p dist/ci && git --no-pager log --oneline ${{env.SIT_VERSION}}..HEAD > dist/ci/revision-list.md
 
       - name: Upload Revision List
         uses: actions/upload-artifact@v4

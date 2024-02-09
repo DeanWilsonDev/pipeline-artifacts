@@ -37,8 +37,9 @@ jobs:
         run: |
           git checkout ${{input.VERSION}}
           git tag -a SIT-${{ env.VERSION }} -m "CI: ${{ env.VERSION }}"
-          git push origin ${{ env.VERSION }}
+          git push origin SIT-${{ env.VERSION }}
+
       - name: Update SIT Version environment variable
         run: | 
-          VERSION=v$(node -p "require('./package.json').version")
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          SIT_VERSION=v$(node -p "require('./package.json').version")
+          echo "SIT_VERSION=$SIT_VERSION" >> $GITHUB_ENV

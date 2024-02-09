@@ -84,7 +84,7 @@ jobs:
         run: |
           git fetch --tags
           mkdir -p dist/ci && git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)..HEAD > dist/ci/commit-log.txt
-          touch dist/ci/revision-list.txt
+          cat dist/ci/commit-log.txt
 
       - name: Upload Commit Log 
         uses: actions/upload-artifact@v4

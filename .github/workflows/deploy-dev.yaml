@@ -2,11 +2,10 @@ name: Deploy DEV
 
 on: [push]
 
-env:
-  VERSION: "" 
-
 jobs:
   deploy:
+    env:
+      Version: "" 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -47,14 +46,14 @@ jobs:
 
       - name: Update Version Variable
         run: |
-          VERSION=v$(node -p "require('./package.json').version")
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          $Version=v$(node -p "require('./package.json').version")
+          echo "VERSION=$Version" >> $GITHUB_ENV
 
       - name: Tag Commit 
         run: |
           git fetch --tags
-          git tag -a $VERSION -m "CI: DEV $VERSION"
-          git push origin $VERSION -f
+          git tag -a $Version -m "CI: DEV $Version"
+          git push origin $Version -f
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

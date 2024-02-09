@@ -83,7 +83,8 @@ jobs:
       - name: Get Commit Log 
         run: |
           git fetch --tags
-          mkdir -p dist/ci && git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)..HEAD > dist/ci/commit-log.txt
+          mkdir -p dist/ci 
+          echo "$(git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)..HEAD<<EOF)" > dist/ci/commit-log.txt
           cat dist/ci/commit-log.txt
 
       - name: Upload Commit Log 

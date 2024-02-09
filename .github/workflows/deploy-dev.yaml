@@ -2,8 +2,6 @@ name: Deploy DEV
 
 on: [push]
 
-env:
-  SIT_VERSION: ${{vars.SIT_VERSION}}
 
 jobs:
   deploy:
@@ -70,7 +68,6 @@ jobs:
   revision_list:
     needs: deploy
     runs-on: ubuntu-latest
-    if: ${{env.SIT_VERSION}} != "v0.0.0"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

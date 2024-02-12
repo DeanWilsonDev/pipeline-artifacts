@@ -50,7 +50,7 @@ jobs:
       - name: Increment Package Version
         run: |
           npm version patch -m "[no ci] CI: DEV v$(node -p "require('./package.json').version")}" 
-          git push origin main
+          git push origin main --force-with-lease
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

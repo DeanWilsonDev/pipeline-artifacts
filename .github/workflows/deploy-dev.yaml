@@ -50,6 +50,9 @@ jobs:
       - name: Increment Package Version
         run: |
           python increment_version.py
+          git add VERSION.md
+          git commit -m "Update to version v$(cat VERSION.md)"
+          git push origin main -o ci.skip
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

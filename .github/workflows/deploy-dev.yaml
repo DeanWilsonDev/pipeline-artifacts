@@ -39,8 +39,13 @@ jobs:
       - name: Test Project
         run: npm run test:coverage
 
+      - name: Create Build Version Name
+        run: |
+          echo "BUILD_VERSION=$(git --no-pager log --oneline -n 1 --pretty=%cs%h)-${{ github.run_id }}" >> $GITHUB_ENV
+
       - name: Create Tag
         run: |
+          echo "$BUILD_VERSION"
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
           git fetch --tags

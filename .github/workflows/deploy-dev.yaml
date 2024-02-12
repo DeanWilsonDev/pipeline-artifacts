@@ -44,9 +44,8 @@ jobs:
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
           git fetch --tags
-          echo "VERSION=$(cat VERSION.md)" >> $GITHUB_ENV 
-          git tag -a "v$VERSION" -m "v$VERSION"
-          git push origin "v$VERSION" -f
+          git tag -a "v$(cat VERSION.md)" -m "v$(cat VERSION.md)"
+          git push origin "v$(cat VERSION.md)" -f
       
       - name: Increment Package Version
         run: |

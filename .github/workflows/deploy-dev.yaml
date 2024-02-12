@@ -46,6 +46,7 @@ jobs:
           # npm version patch -m "[no ci] CI: DEV v$(node -p "require('./package.json').version")}" 
           npm version patch --no-git-tag-version
           git add package.json && git add package-lock.json
+          echo "COMMIT_MSG=$(git log -n 1 --pretty=format:%s)" >> $GITHUB_ENV
           git reset --soft HEAD~1
           git commit -m "$(git log -n 1 --pretty=format:%s)  v$(cat VERSION.md)"
           git push origin main --force-with-lease -o ci.skip

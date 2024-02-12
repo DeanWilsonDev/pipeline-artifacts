@@ -44,8 +44,9 @@ jobs:
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
           git fetch --tags
-          git tag -a "v$(node -p "require('./package.json').version")" -m "v$(node -p "require('./package.json').version")"
-          git push origin "v$(node -p "require('./package.json').version")" -f
+          echo "VERSION=$(cat VERSION.md)" >> $GITHUB_ENV 
+          git tag -a "v$VERSION" -m "v$VERSION"
+          git push origin "v$VERSION" -f
       
       - name: Increment Package Version
         run: |

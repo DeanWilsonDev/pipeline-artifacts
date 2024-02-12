@@ -41,14 +41,14 @@ jobs:
 
       - name: Create Tag
         run: |
+          git config user.name "$(git log -n 1 --pretty=format:%an)"
+          git config user.email "$(git log -n 1 --pretty=format:%ae)"
           git fetch --tags
           git tag -a "v$(node -p "require('./package.json').version")" -m "v$(node -p "require('./package.json').version")"
           git push origin "v$(node -p "require('./package.json').version")" -f
       
       - name: Increment Package Version
         run: |
-          git config user.name "$(git log -n 1 --pretty=format:%an)"
-          git config user.email "$(git log -n 1 --pretty=format:%ae)"
           npm version patch -m "[no ci] CI: DEV v$(node -p "require('./package.json').version")}" 
           git push origin main
 

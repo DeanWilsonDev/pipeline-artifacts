@@ -41,7 +41,7 @@ jobs:
 
       - name: Create Build Version Name
         run: |
-          echo "BUILD_VERSION=$(git --no-pager log --oneline -n 1 --pretty=%cs%h)-${{ github.run_id }}" >> $GITHUB_ENV
+          echo "BUILD_VERSION=$(git --no-pager log --oneline -n 1 --pretty=%cs)-${{ github.run_id }}" >> $GITHUB_ENV
 
       - name: Create Tag
         run: |

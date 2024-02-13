@@ -2,7 +2,6 @@ name: Deploy DEV
 
 on: [push]
 
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -39,9 +38,9 @@ jobs:
       - name: Test Project
         run: npm run test:coverage
 
-      - name: Create Build Version Name
+      - name: Create Build Number 
         run: |
-          echo "BUILD_VERSION=$(git --no-pager log --oneline -n 1 --pretty=%cs)-${{ github.run_id }}" >> $GITHUB_ENV
+          echo "BUILD_NUMBER=$(git --no-pager log --oneline -n 1 --pretty=%cs)-${{ github.run_id }}" >> $GITHUB_ENV
 
       - name: Create Tag
         run: |
@@ -49,9 +48,19 @@ jobs:
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
           git fetch --tags
-          git tag -a "$BUILD_VERSION" -m "$BUILD_VERSION"
-          git push origin "$BUILD_VERSION" -f
+          git tag -a "$BUILD_NUMBER" -m "$BUILD_NUMBER"
+          git push origin "$BUILD_NUMBER" -f
 
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage-report
+          path: dist/test/coverage/lcov-report/index.html
+
+  upload_artifact:
+    runs-on: ubuntu-latest
+    steps:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -61,13 +70,6 @@ jobs:
             !dist/**/*.md
             !dist/test
             !dist/ci
-
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v4
-        with:
-          name: code-coverage-report
-          path: dist/test/coverage/lcov-report/index.html
-
 
   commit_log:
     needs: deploy

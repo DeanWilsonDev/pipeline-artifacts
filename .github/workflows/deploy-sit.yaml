@@ -23,11 +23,6 @@ jobs:
         run: |
           echo "RUN_ID=$(python3 get_run_id.py ${{ env.BUILD_NUMBER_TAG }})" >> $GITHUB_ENV
 
-      - name: test vars
-        run: |
-          echo ${{ env.BUILD_NUMBER_TAG}}
-          echo ${{ env.RUN_ID }}
-
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
@@ -35,10 +30,6 @@ jobs:
           path: dist
           github-token: ${{ github.token }}
           run-id: ${{ env.RUN_ID }}
-
-      - name: test tag
-        run: |
-          echo "$(git --no-pager log --oneline -n 1 --pretty=%h%s)"
 
       - name: Tag Commit for SIT 
         run: |

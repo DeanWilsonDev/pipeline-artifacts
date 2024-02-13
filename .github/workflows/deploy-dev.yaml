@@ -42,7 +42,6 @@ jobs:
 
       - name: Create Tag
         run: |
-          echo ""
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
           git fetch --tags
@@ -81,7 +80,7 @@ jobs:
         run: |
           mkdir -p dist/ci 
           echo 'COMMIT_LOG<<EOF' >> $GITHUB_ENV
-          echo "$(git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-v*" | head -n 1)..HEAD)" >> $GITHUB_ENV
+          echo "$(git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-*" | head -n 1)..HEAD)" >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
       - name: Save Commit Log

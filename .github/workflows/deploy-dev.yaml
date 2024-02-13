@@ -82,7 +82,10 @@ jobs:
           mkdir -p dist/ci 
           {
             echo 'COMMIT_LOG<<EOF' 
-            git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-*" | head -n 1)..HEAD 
+            echo "$(git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-*" | head -n 1)..HEAD) \n"
+            echo "this \n"
+            echo "definitely \n"
+            echo "works"
             echo EOF 
           } >> "$GITHUB_ENV"
 

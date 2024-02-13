@@ -71,6 +71,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Fetch Tags
         run: |
@@ -82,7 +84,7 @@ jobs:
           mkdir -p dist/ci 
           {
             echo 'COMMIT_LOG<<EOF' 
-            git --no-pager log --pretty=tformat:"%h %s%n" $(git tag -l --sort=-version:refname "SIT-*" | head -n 1)..HEAD
+            git --no-pager log --pretty=format:"%h %s" $(git tag -l --sort=-version:refname "SIT-*" | head -n 1)..HEAD
             echo EOF 
           } >> "$GITHUB_ENV"
 

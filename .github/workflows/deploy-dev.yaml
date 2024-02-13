@@ -77,21 +77,22 @@ jobs:
           git fetch --tags
 
       - name: Get Commit Log 
+        id: commit-log
         run: |
           mkdir -p dist/ci 
           {
             echo 'COMMIT_LOG<<EOF' 
             git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-*" | head -n 1)..HEAD 
             echo 'EOF' 
-          } >> $GITHUB_ENV
+          } >> $GITHUB_OUTPUT
 
       - name: Save Commit Log
         run: |
-          echo "$COMMIT_LOG" > dist/ci/commit-log.txt
+          echo ${{ steps.commit-log.outputs.COMMIT_LOG }} > dist/ci/commit-log.txt
 
       - name: test
         run: |
-          echo "$COMMIT_LOG"
+          echo ${{ steps.commit-log.outputs.COMMIT_LOG }}
           cat dist/ci/commit-log.txt
 
       - name: Upload Commit Log 

@@ -83,16 +83,16 @@ jobs:
           {
             echo 'COMMIT_LOG<<EOF' 
             git --no-pager log --oneline $(git tag -l --sort=-version:refname "SIT-*" | head -n 1)..HEAD 
-            echo 'EOF' 
-          } >> $GITHUB_OUTPUT
+            echo EOF 
+          } >> "$GITHUB_ENV"
 
       - name: Save Commit Log
         run: |
-          echo ${{ steps.commit-log.outputs.COMMIT_LOG }} > dist/ci/commit-log.txt
+          echo "$COMMIT_LOG" > dist/ci/commit-log.txt
 
       - name: test
         run: |
-          echo ${{ steps.commit-log.outputs.COMMIT_LOG }}
+          echo "$COMMIT_LOG"
           cat dist/ci/commit-log.txt
 
       - name: Upload Commit Log 

@@ -13,15 +13,19 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Get Tag and Run-ID
+      - name: Get Tag
         id: vars
         run: |
-          echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
-          echo "RUN_ID=${GITHUB_RUN_ID}" >> $GITHUB_ENV
+          echo "BUILD_NUMBER_TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
+
+      - name: Get Run ID
+        id: runid
+        run: |
+          echo "RUN_ID=$(python3 get_run_id.py ${{ env.BUILD_NUMBER_TAG}})" >> $GITHUB_ENV
 
       - name: test vars
         run: |
-          echo ${{ env.VERSION }}
+          echo ${{ env.BUILD_NUMBER_TAG}}
           echo ${{ env.RUN_ID }}
 
           #  - name: Download Artifacts

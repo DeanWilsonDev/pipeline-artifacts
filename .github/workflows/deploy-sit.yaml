@@ -36,6 +36,10 @@ jobs:
           github-token: ${{ github.token }}
           run-id: ${{ env.RUN_ID }}
 
+      - name: test tag
+        run: |
+          echo "$(git --no-pager log --oneline -n 1 --pretty=%h%s)"
+
       - name: Tag Commit for SIT 
         run: |
           git config user.name "$(git log -n 1 --pretty=format:%an)"
@@ -43,8 +47,5 @@ jobs:
           git tag -a SIT-${{ env.BUILD_NUMBER_TAG }} -m "CI: SIT-${{ env.BUILD_NUMBER_TAG }}"
           git push origin SIT-${{ env.BUILD_NUMBER_TAG }}
 
-      - name: test tag
-        run: |
-          echo "$(git --no-pager log --oneline -n 1 --pretty=%h%m)"
 
        # Push to SIT

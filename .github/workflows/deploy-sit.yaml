@@ -40,8 +40,11 @@ jobs:
         run: |
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
-          echo "$(git --no-pager log --oneline -n 1)"
           git tag -a SIT-${{ env.BUILD_NUMBER_TAG }} -m "CI: SIT-${{ env.BUILD_NUMBER_TAG }}"
           git push origin SIT-${{ env.BUILD_NUMBER_TAG }}
+
+      - name: test tag
+        run: |
+          echo "$(git --no-pager log --oneline -n 1 --pretty=%h%m)"
 
        # Push to SIT
